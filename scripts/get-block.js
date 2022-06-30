@@ -5,16 +5,6 @@ const { SupportedAlgorithm } = require("ethers/lib/utils");
 async function main() {
   const web3 = new Web3("https://bsc-dataseed.binance.org/");
 
-  //topics[0] transfer event olan objelerin gerekli bilinmeyenleri alınır. Gönderen ve alan adreslerin kendine özel
-  //objeleri olur, datayı hexadecimalden integer yaparız, cüzdana ne kadar girip çıktığını görebiliriz ama
-  //block datayı çektiğimiz geçmiş öncesi balanceı da almalıyız, belki de buna şuan gerek yoktur zaten tüm bsc
-  //datayı çekeceğizdir şuan deneysel takılıyoruzdur, başlangıç balanceı en başta 0 kabul etmekte sorun yoktur.
-  //bu durumda dataları toplayıp objeye bir de balance ekleriz balanceı datadan besleriz.
-
-  // const a = web3.utils.sha3("Transfer(address,address,uint256)");
-
-  // transferTopic = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
-
   const transferTopic = web3.utils.sha3("Transfer(address,address,uint256)");
   let blockStarter = 19085790;
   for (let x = 0; x < 100; x++) {
@@ -44,7 +34,7 @@ async function main() {
       txHash = filtered[i].transactionHash;
       tokenAddress = filtered[i].address;
 
-      //topics her zamn tum veriyi icermiyor
+      //topics her zaman tum veriyi icermiyor
       //topics amount veya diger verileri icermediginde data icerisinde bulunuyor
       //data'yi parcalayip topicse ekliyoruz
 
